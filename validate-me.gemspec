@@ -8,9 +8,9 @@ Gem::Specification.new do |gem|
   gem.version       = Validate::Me::VERSION
   gem.authors       = ["John Langan"]
   gem.email         = ["john.langan@oxygenna.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
-  gem.homepage      = ""
+  gem.description   = %q{Rack Middleware that validates HTML, for use with middleman}
+  gem.summary       = %q{Rack Middleware that validates HTML}
+  gem.homepage      = "https://github.com/langan/validate-me"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }

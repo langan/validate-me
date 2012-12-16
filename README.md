@@ -1,6 +1,6 @@
 # Validate::Me
 
-TODO: Write a gem description
+Rack Middleware that validates HTML, for use with middleman
 
 ## Installation
 
@@ -18,7 +18,10 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Add the following to your middleman config.rb file
+
+    require 'validate-me'
+    use Rack::Validate
 
 ## Contributing
 
