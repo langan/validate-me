@@ -15,10 +15,11 @@ module Rack
       request = Rack::Request.new( env )
       if !request.params['rack-validate'].blank?
         if headers['Content-Type'] =~ /text\/html|application\/xhtml\+xml/
-          pp response
           body = response[0]
 
           issues = Validator.validate( body )
+
+          pp issues
 
           body.gsub!(%r{</body>}, Validator.generate_report( issues )  + "</body>")
 

@@ -1,0 +1,113 @@
+<script src="http://www.google.com/jsapi"></script>
+<script type="text/javascript">
+    google.load("jquery", "1.3.2");
+    google.load("jqueryui", "1.7.2");
+</script>
+<style type='text/css'>
+    #validate-me-bar {
+        font-family: "Courier New", Courier, monospace;
+        position: absolute;
+        top: 0;
+        z-index: 100;
+    }
+
+    .error-preview {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        width: 250px;
+        background-color: rgba(0,0,0,.8);
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    .valid {
+        background-color: rgba(0,200,0,.8);
+    }
+
+    .error-preview a, .error-preview i {
+        color: white;
+        cursor: pointer;
+    }
+
+    #validate-me-bar table {
+        margin-bottom: 0;
+        color: white;
+    }
+
+    #validate-me-bar tr {
+        border-color: black;
+    }
+
+    #errors, #warnings {
+        display: none;
+        background-color: rgba(0,0,0,.8);
+    }
+</style>
+
+<script type="text/javascript">
+    $(function($){
+        $( '#error-link' ).click( function() {
+            $( '#errors' ).toggle();
+        });
+
+        $( '#warning-link' ).click( function() {
+            $( '#warnings' ).toggle();
+        });
+
+        $( '#close-bar' ).click( function() {
+            $( '#validate-me-bar' ).hide();
+        });
+    });
+</script>
+
+<div id="validate-me-bar" class="row-fluid">
+    <div id="errors">
+        <% if !@issues.errors.empty? %>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Error</th>
+                    <th>Line number</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for @error in @issues.errors %>
+                <tr>
+                    <td><%= html_escape( @error.message ) %></td>
+                    <td><%= @error.line %></td>
+                </tr>
+                <% end %>
+            </tbody>
+        </table>
+        <% end %>
+    </div>
+    <div id="warnings">
+        <% if !@issues.warnings.empty? %>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Warning</th>
+                    <th>Line number</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for @warning in @issues.warnings %>
+                <tr>
+                    <td><%= html_escape( @warning.message ) %></td>
+                    <td><%= @warning.line %></td>
+                </tr>
+                <% end %>
+            </tbody>
+        </table>
+        <% end %>
+    </div>
+    <div class="error-preview<% if @issues.validity %> valid<% end %>">
+        <a id="error-link">Errors</a>
+        <span class="badge badge-important pull-center"><%= @issues.errors.size.to_s %></span>
+
+        <a id="warning-link">Warnings</a>
+        <span class="badge badge-warning pull-center"><%= @issues.warnings.size.to_s %></span>
+        <i id="close-bar" class="icon-remove pull-right"></i>
+    </div>
+</div>
