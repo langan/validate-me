@@ -2,7 +2,8 @@ require 'rack'
 require 'validate-me/response_file'
 require 'w3c_validators'
 require 'erb'
-require 'pp'
+
+include ERB::Util
 
 module Rack
   class Validate
@@ -21,14 +22,6 @@ module Rack
         @template ||= ::ERB.new ::File.read ::File.expand_path("../templates/validate-me-bar.erb",__FILE__)
         @template.result(binding)
       end
-
-      private
-
-      # Stealing HTML escape method from rails
-      def self.html_escape( string )
-        string.to_s.gsub(/[&"><]/) { |special| HTML_ESCAPE[special] }
-      end
-
     end
   end
 end
